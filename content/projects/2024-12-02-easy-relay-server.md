@@ -15,4 +15,3 @@ Library for making different types of relay websocket servers. The goal is to ho
 - Full Broadcast Relay
 - Authentication Hooks
 - Message verification hooks
-

@@ -25,8 +25,8 @@ taxonomies = "on"
 
 [extra]
 # Put all your custom variables here
-list_pages = true
 header_nav = [
-    { url = "/projects", name_en = "/projects/", name_fr = "/projects/"},
-    { url = "/resume", name_en = "/resume/", name_fr = "/resume/"},
+    { url = "/projects", name_en = "/projects/", name_sp = "/projectos/"},
+    { url = "/resume", name_en = "/resume/", name_sp = "/resumen/"},
+    { url = "/", name_en = "/home/", name_sp = "/inicio/"}
 ]

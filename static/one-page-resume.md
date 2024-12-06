@@ -1,35 +1,21 @@
-+++
-title = "Resume"
-+++
+**Camilo Catasus** | [+1(305)-300-9730](tel:305-300-9730) | [camilomcatasus@gmail.com](mailto:camilomcatasus@gmail.com) | [term.camilomcatasus.dev](https://term.camilomcatasus.dev)
 ___
-## Contact Information
-**Camilo Catasus**  
-[+1(305)-300-9730](tel:305-300-9730)  
-[camilomcatasus@gmail.com](mailto:camilomcatasus@gmail.com)
-
 ## Education 
 University of Florida | Gainesville FL   
 Bachelor of Science in Computer Science  
 Minor in Digital Arts and Science  
 Aug 2018-March 2022
-
 ___
-
 ## Skills Summary 
 - Languages:    Rust, C#, Java, JavaScript, Python, HTML5, CSS3, C++, C, MATLAB
-- Environments: VS Code, Android Studio, Visual Studio, InteliJ IDEA, Eclipse, NetBeans
+- Environments: VS Code, Android Studio, Visual Studio, Eclipse, NetBeans
 - Font-End Web: ReactJS, Angular, .NET, ASP.NET, Django, VueJS, Flask
 - Back-End Web: NodeJS, Axum, Express, SQL, SQLite, Google Cloud, AWS
 - Tools:        Git, GitHub, Blender, GNU Make, Figma, Debugging, Vim
 - Platforms:    Linux (Ubuntu, Debian, Kali), Windows 11
 - Languages:    English (Native) & Spanish (Fluent)
-
 ___
-
 ## Projects 
-**Personal Website**
-- Created a visually appealing website using rust and webassembly
-- Website displays a fake terminal that can be navigated on desktop or on mobile
 
 **Blender Polyhedral Splines**
 - Implemented complex mathematical algorithms involving Bezier Curves in Python using NumPy
@@ -40,11 +26,7 @@ ___
 - Handrolled multiplayer that utilizes interpolation, lag compensation, reconcilliation and prediction
 - Single web server able to handle thousands of concurrent individual games
 
-**Easy Relay Server**
-- Rust library for creating different types of relay servers with ease
-
 ___
-
 ## Work Experience 
 **Technology Consultant          July 2024 - November 2024**
 BG Integrative Studio
@@ -56,9 +38,7 @@ BG Integrative Studio
 Elfen Software
 - Rapidly fixed critical bugs that delayed development
 - Spearheaded automated end-to-end testing of web application
-- Mastered underlying technology (.NET Webforms) to assist peers with their issues
+- Mastered underlying technology to assist peers with their issues
 - Introduced componentization of complex code using User Controls
 - Created documentation site for database using rust, actix, and HTMX
 
-
-[Download PDF](/resume.pdf)
