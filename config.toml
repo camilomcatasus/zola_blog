@@ -28,5 +28,6 @@ taxonomies = "on"
 header_nav = [
     { url = "/projects", name_en = "/projects/", name_sp = "/projectos/"},
     { url = "/resume", name_en = "/resume/", name_sp = "/resumen/"},
-    { url = "/", name_en = "/home/", name_sp = "/inicio/"}
+    { url = "/", name_en = "/home/", name_sp = "/inicio/"},
+    { url = "/sidequests", name_en = "/sidequests/", name_sp = "/sidequests/"}
 ]
