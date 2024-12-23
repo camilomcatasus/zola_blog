@@ -15,7 +15,7 @@ that can be reached by pressing the button underneath any article.
 
 Most of the website is built in **Rust** using *macroquad* as a sort of game engine. 
 I initially tried to get a project built with *ratatui.rs* and *xterm.js* to work but the complexity overwhelmed me eventually.
-So I built a fake terminal renderer in macroquad, using its simple api for drawing to the screen. 
+So I built a pseudo terminal renderer in macroquad, using its simple api for drawing to the screen. 
 
 I'm using trunk to serve all my static files.
 
@@ -23,5 +23,5 @@ I'm using trunk to serve all my static files.
 
 After trunk compiles rust to wasm, it adds a nonce to the end of the file name. 
 This makes it difficult to target the wasm from javascript, which is needed for macroquad.
-To resolve this I had to create a utility that gets the name of the wasm file and rewrites 
-the javascript in the index.html to point to the wasm file.
+To resolve this I had to create a [utility](https://github.com/camilomcatasus/trunk_repl) that gets the name of the wasm file and rewrites 
+the javascript in the index.html to point to the wasm file. 

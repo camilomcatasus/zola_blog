@@ -15,8 +15,9 @@ By the way I will be writing all my solutions in rust.
  - [Day 2](#day-2-red-nosed-reports)
  - [Day 3](#day-3-mull-it-over)
  - [Day 4](#day-4-ceres-search)
+ - [Day 5](#day-5-print-queue)
 ---
-## [Day 1 - Historian Histeria](https://adventofcode.com/2024/day/1)
+## [Day 1 - Historian Histeria](https://github.com/camilomcatasus/advent_of_code_2024/blob/master/src/day1.rs)
 ### Part 1
 *The problem:*
 Two lists of numbers are given, we need to find the sum of all differences between the smallest numbers of each list in order.
@@ -32,63 +33,7 @@ We have the same two lists, now we just have to find the summation of all instan
 Again, this is easy, we need to use either a HashMap or a table to keep track of the instances of each number in the list on the right. 
 After we iterate through the right list and have our HashMap, we can iterate through the list on the left and multiply each number by the value in the HashMap.
 
-### Code
-```rust
-use std::{collections::HashMap, io::Read};
-pub fn solve() -> anyhow::Result<()> {
-    let mut buffer: Vec<u8> = Vec::new();
-    let mut stdin = std::io::stdin();
-    stdin.read_to_end(&mut buffer)?;
-
-    let list = String::from_utf8(buffer)?;
-    let mut distance_count = 0;
-
-    let mut first_list: Vec<isize> = Vec::new();
-    let mut second_list: Vec<isize> = Vec::new();
-    list.split("\n").for_each(|list_entry| {
-        println!("{}", list_entry);
-        let split_entry: Vec<&str> = list_entry.split_whitespace().collect();
-
-        if split_entry.len() == 2 {
-        let first_num = isize::from_str_radix(split_entry[0], 10).unwrap();
-        let second_num = isize::from_str_radix(split_entry[1], 10).unwrap();
-
-            first_list.push(first_num);
-            second_list.push(second_num);
-        }
-    });
-
-    first_list.sort();
-    second_list.sort();
-
-    for index in 0..first_list.len() {
-        distance_count += (first_list[index] - second_list[index]).abs();
-    }
-
-    let mut right_num_count: HashMap<isize, isize> = HashMap::new();
-
-    for num in second_list.iter() {
-        match right_num_count.get_mut(num) {
-            Some(old) => *old = *old + 1,
-            None => {
-            right_num_count.insert(*num, 1);
-            }
-        }
-    }
-
-    let mut similarity_score = 0;
-    for num in first_list {
-        if let Some(matching_count) = right_num_count.get(&num) {
-            similarity_score += num * *matching_count;
-        }
-    }
-
-    println!("Full distance: {distance_count}");
-    println!("Similarity Score: {similarity_score}");
-    Ok(())
-}
-```
-## Day 2 - Red-Nosed Reports
+## [Day 2 - Red-Nosed Reports](https://github.com/camilomcatasus/advent_of_code_2024/blob/master/src/day2.rs)
 ### Part 1
 *The Problem:*
 We are given a list of lists of numbers. For each sub-list we have to check to see if each list is either increasing or decreasing by a difference of one or two.
@@ -109,78 +54,7 @@ I wrote a function that checks for sub-list validity and returns the index at wh
 and if there is only one number that will cause a fail state, then the element that causes the fail state is either at the index or right next to it.
 So I just run my validity checker function on the sub-list with either the index - 1, index, and index + 1 removed.
 
-### Code
-```rust
-use std::io::stdin ;
-pub fn solve() -> anyhow::Result<()>{
-    fn test_line(nums: &Vec<isize>) -> Option<isize> {
-        let mut trend = 0isize;
-        for index in 0..(nums.len() - 1) {
-            //println!("Index: {index}, is_safe: {is_safe}, trend: {trend}");
-            let abs_diff = nums[index].abs_diff(nums[index + 1]);
-            let true_diff = nums[index] - nums[index + 1];
-            if abs_diff == 1 || abs_diff == 2 || abs_diff == 3 {
-                let is_safe = match trend {
-                    ..0 => true_diff < 0,
-                    0 => { 
-                        trend = true_diff;
-                        true
-                    },
-                    1.. =>  true_diff > 0
-                };
-
-                if !is_safe {
-                    return Some(index as isize);
-                }
-            }
-            else {
-               return Some(index as isize);
-            }
-        }
-        return None;
-    }
-    let line_buf = stdin().lines();
-    let mut base_safe_count = 0;
-    let mut adjusted_safe_count = 0;
-    for line in line_buf {
-        let nums : Vec<isize> = line?.split_whitespace().map(|num_str| isize::from_str_radix(num_str, 10).unwrap()).collect();
-
-        if let Some(index) = test_line(&nums) {
-            let (left_slice, right_slice)= &nums.split_at(usize::try_from(index)?);
-            let mut valid = test_line(&[left_slice, &right_slice[1..]].concat()).is_none();
-
-
-            if index > 0 && !valid {
-                let (left_slice, right_slice)= &nums.split_at(usize::try_from(index - 1)?);
-                valid = test_line(&[left_slice, &right_slice[1..]].concat()).is_none();
-            }
-            if index > 1 && !valid {
-                let (left_slice, right_slice)= &nums.split_at(usize::try_from(index - 2)?);
-                valid = test_line(&[left_slice, &right_slice[1..]].concat()).is_none();
-            }
-            if usize::try_from(index)? < nums.len() - 1 && !valid {
-                let (left_slice, right_slice)= &nums.split_at(usize::try_from(index + 1)?);
-                valid = test_line(&[left_slice, &right_slice[1..]].concat()).is_none();
-            }
-
-            if valid {
-                adjusted_safe_count+= 1;
-            }
-        }
-        else {
-            adjusted_safe_count += 1;
-            base_safe_count += 1;
-        }
-
-    }
-
-    println!("Safe count: {base_safe_count}");
-    println!("Adjusted Safe count: {adjusted_safe_count}");
-
-    Ok(())
-}
-```
-## Day 3 - Mull It Over
+## [Day 3 - Mull It Over](https://github.com/camilomcatasus/advent_of_code_2024/blob/master/src/day3.rs)
 ### Part 1
 *The Problem:*
 We are given text and asked to find a specific pattern inside the text. 
@@ -266,55 +140,7 @@ fn match_chars(slice: &[char], value: &str) -> bool {
 }
 ```
 
-### Code 
-```rust
-use std::io::Read;
-use anyhow::{bail, Context};
-pub fn solve() -> anyhow::Result<()> {
-    let mut buffer: Vec<u8> = Vec::new();
-    let mut stdin = std::io::stdin();
-    stdin.read_to_end(&mut buffer)?;
-    let full_text : Vec<char> = String::from_utf8(buffer)?.chars().collect();
-    let mut cursor = 0;
-    let mut total = 0;
-    let mut enabled = true;
-    while cursor < full_text.len() {
-        match try_parse(&full_text, &mut cursor) {
-            Ok(pair) => total = total + pair.0 * pair.1,
-            Err(_) => cursor += 1
-        }
-    }
-
-    let mut adjusted_total = 0;
-    let mut cursor = 0;
-    while cursor < full_text.len() {
-        if cursor < full_text.len() - 4 && match_chars(&full_text[cursor..], "do()") {
-            enabled = true;
-            cursor += 4;
-        }
-        else if cursor < full_text.len() - 7 && match_chars(&full_text[cursor..], "don't()") {
-            enabled = false;
-            cursor += 7;
-
-        }
-        else if enabled {
-            match try_parse(&full_text, &mut cursor) {
-                Ok(pair) => adjusted_total = adjusted_total + pair.0 * pair.1,
-                Err(_) => cursor += 1
-            }
-        }
-        else {
-            cursor += 1;
-        }
-    }
-
-    println!("Total: {total}");
-    println!("Adjusted Total: {adjusted_total}");
-    Ok(())
-}
-```
-
-## Day 4 - Ceres Search
+## [Day 4 - Ceres Search](https://github.com/camilomcatasus/advent_of_code_2024/blob/master/src/day4.rs)
 ### Part 1
 *The Problem:*
 We are given some text (or a 2d char array) and we have to find and count every instance of the string **XMAS** in any direction.
@@ -426,57 +252,8 @@ fn has_x_mas(char_array: &Vec<Vec<char>>, x: usize, y:usize ) -> anyhow::Result<
 }
 ```
 
-### Code
-```rust
-use crate::utils::get_input;
-pub fn solve() -> anyhow::Result<()> {
-    let input = get_input()?;
-    let char_array : Vec<Vec<char>> =  input.split("\n").map(|line| line.chars().collect()).filter(|arr: &Vec<char>| arr.len() != 0).collect();
-
-    let mut xmas_count = 0;
-    let mut x_mas_count = 0;
-    for x in 0..char_array[0].len() {
-        for y in 0..char_array.len() {
-
-            if let Ok(true) = has_xmas(1, 1, &char_array, x, y) {
-                xmas_count += 1;
-            }
-            if let Ok(true) = has_xmas(1, -1, &char_array, x, y) {
-                xmas_count += 1;
-            }
-            if let Ok(true) = has_xmas(-1, -1, &char_array, x, y) {
-                xmas_count += 1;
-            }
-            if let Ok(true) = has_xmas(-1, 1, &char_array, x, y) {
-                xmas_count += 1;
-            }
-            if let Ok(true) = has_xmas(0, 1, &char_array, x, y) {
-                xmas_count += 1;
-            }
-            if let Ok(true) = has_xmas(0, -1, &char_array, x, y) {
-                xmas_count += 1;
-            }
-            if let Ok(true) = has_xmas(1, 0, &char_array, x, y) {
-                xmas_count += 1;
-            }
-            if let Ok(true) = has_xmas(-1, 0, &char_array, x, y) {
-                xmas_count += 1;
-            }
-
-            if let Ok(true) = has_x_mas(&char_array, x, y) {
-                x_mas_count += 1;
-            }
-        }
-    }
-    println!("XMAS COUNT: {xmas_count}");
-    println!("X-MAS COUNT: {x_mas_count}");
-
-    Ok(())
-}
-```
-
-## Day 5 - Print Queue
-# Part 1
+## Day 5 - [Print Queue](https://github.com/camilomcatasus/advent_of_code_2024/blob/master/src/day5.rs)
+### Part 1
 *The Problem:*
 Input is given in two parts, the first part consists of lines that describe the order of numbers. The number on the left of a line must come before the number on the right in the second part.
 The second part of the input consists of another list of lines that have comma seperated numbers. For every line the correctly abides by the rules described in the first part of the input,
@@ -486,3 +263,38 @@ we take the middle number of each line and add it to a running sum.
 *Jeopardy Noises...*
 I am kind of stumped for a non-brute force solution to this. I imagine there are no circular references in the ordering description.
 This means that there is a number that is referenced only once in the ordering description.
+
+Ok one good think at *checks notes* 17 days later I have a decent solution. We create a 100 row 100 column table to keep track of the rules. 
+I chose 100x100 because looking at the data, no page number exceeds 100.
+If page 75 comes before page 14 for example (75|14), we would set the boolean at table[75][14] to be true.
+```rs
+let mut rule_table = [[false; 100]; 100];
+
+for rule_line in rule_lines.iter() {
+    let (left, right) = rule_line.split_once("|").unwrap();
+
+    let left_num = usize::from_str_radix(left.trim(), 10)?;
+    let right_num = usize::from_str_radix(right.trim(), 10)?;
+
+    rule_table[left_num][right_num] = true;
+}
+```
+Now when we go through the page groups, we go through them in reverse order. As we look at each element, we look backwards, checking to see if there are any rule violations.
+Here's the rub, when we are looking at a particular page and checking to see if its valid in its position, we don't check the rules for its position. Instead, we check the rules for the pages that come after it.
+For example let's say we had the group "75,47,61,53,29" and we want to check if page 61 is positioned correctly. We wouldn't check the rules for page 61 (all of the 61|x rules), we would check the rules for pages 53 and 29.
+Moreover, we would check pages 53 and 29 with relation to page 61. Our table holds all of our rules, so if the rules for 53|61 or 29|61 don't exist, then 61 must be in a valid position.
+
+### Part 2
+*The Problem:*
+The groups of numbers that were incorrect now need to be sorted so that they abide by the ordering rules, then the middle page needs to be counted.
+
+*The Solution:*
+So given our previous work, the next part is really easy. We just pass a comparison function to Rust's sort function and it'll handle the sorting for us. 
+The comparison function is just checking to see if the page ordering exists for any pair of numbers. If it exists for pair A|B, A should go before B.
+```rs
+group.sort_by(|a, b| match rule_table[*a][*b] {
+    true => std::cmp::Ordering::Less,
+    false => std::cmp::Ordering::Greater
+});
+running_sum_2 += group[group.len()/2];
+```
