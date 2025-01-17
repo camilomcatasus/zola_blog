@@ -36,7 +36,7 @@ This way I could run a lot of connections off of my single vps if I need to.
 
 ### 2. Write most of the communication protocol
 First we have to encode message we're sending into a byte array that we can send to our peer.
-For that I created a class called Encoder that we can utilize to encode mesages on the fly.
+For that I created a class called Encoder that we can utilize to encode messages on the fly.
 The class has various functions that we can use that let us encode whatever it is we need to.
 If we need to encode a new data type, we can just add a new function to the class. 
 ```gd
@@ -66,7 +66,7 @@ func encode_u32(u32: int):
 ```
 
 Next we have to decode our messages on the receiver side, for that I created a class called Decoder. 
-It has a byte index variable used to track which byte we're on. We can then use the decode functions godot has for the PackedByteArray.
+It has a byte index variable used to track which byte we're on. We can then use the decode functions Godot has for the PackedByteArray.
 
 
 ```gd
@@ -105,7 +105,7 @@ After a connection is established, every peer needs to identify itself to the ho
 getting all of its information from one websocket connection and has no way to differentiate peers otherwise. 
 Also, the host broadcasts all of their messages because of the way the relay works, so all of our messages cannot give information that will let one player impersonate another.
 After a connection is made a peer sends a new connection message with two unique identifiers. The first identifier is used to inform the peer that the connection message was accepted, 
-the second identifier is what the peer will use to identify all their messages. Could I have done something more complicated like Diffie Helman? Probably, I just figured this was easier and good enough.
+the second identifier is what the peer will use to identify all their messages. Could I have done something more complicated like Diffie-Hellman? Probably, I just figured this was easier and good enough.
 
 ### 4. Updating Positions
 Now comes the hard part. Updating the positions of people who will be seeing those updates moments after they occur. The server will see the clients movement milliseconds after the client sends input,

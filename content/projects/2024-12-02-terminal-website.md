@@ -4,11 +4,11 @@ title = "CamTerm"
 tags = ["Rust", "WASM", "Trunk", "Macroquad"]
 +++
 
-CamTerm is a pseudo terminal renderer that runs in WASM. 
+[CamTerm](https://term.camilomcatasus.dev) is a pseudo terminal renderer that runs in WASM. 
 
 ## How
 
-Every about section under **projects** is written in markdown, so is my resume.
+Every about section under **projects** as well as my resume are written in markdown.
 The markdown is parsed and rendered to a buffer of chars which is then drawn to the screen.
 The same markdown files are used to make a more searchable and disability friendly blog, 
 that can be reached by pressing the button underneath any article.

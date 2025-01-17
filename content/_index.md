@@ -8,4 +8,5 @@ My resume ([written entirely in markdown](/resume)) is available as a pdf [here.
 ---
 
 ## Featured Posts:
- - multiplayer_pong ([blog post](/projects/multiplayer-pong) | [live demo](https://multiplayer_pong.camilomcatasus.dev))
+ - Multiplayer Pong ([blog post](/projects/multiplayer-pong))
+ - CamTerm ([blog post](projects/terminal-website) | [site](https://term.camilomcatasus.dev))
