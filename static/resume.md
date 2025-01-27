@@ -23,7 +23,7 @@ ___
 
 **Multiplayer Pong**
 - Live service multiplayer pong for 2-8 players implemented in godot using websockets
-- Handrolled multiplayer that utilizes interpolation, lag compensation, reconcilliation and prediction
+- Hand rolled multiplayer that utilizes interpolation, lag compensation, reconciliation and prediction
 - Single web server able to handle thousands of concurrent individual games
 
 ___
@@ -32,7 +32,7 @@ ___
 BG Integrative Studio
 - Created system to track client applications to non-profit foundations
 - Streamlined workflow with automation
-- Made tracking process HIPPA compliant
+- Made tracking process HIPAA compliant
 
 **Junior Frontend Developer      October 2022 - April 2024**
 Elfen Software
@@ -41,4 +41,3 @@ Elfen Software
 - Mastered underlying technology to assist peers with their issues
 - Introduced componentization of complex code using User Controls
 - Created documentation site for database using rust, actix, and HTMX
-
